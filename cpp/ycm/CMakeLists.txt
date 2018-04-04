@@ -275,6 +275,8 @@ if ( EXTERNAL_LIBCLANG_PATH OR USE_SYSTEM_LIBCLANG )
     endif()
     # On Debian-based systems, llvm installs into /usr/lib/llvm-x.y.
     file( GLOB SYS_LLVM_PATHS "/usr/lib/llvm*/lib" )
+    # On Gentoo, llvm is installed in slots, so look there.
+    file( GLOB GENTOO_LLVM_PATHS "/usr/lib/llvm/*/lib*" )
     # On FreeBSD , llvm install into /usr/local/llvm-xy
     file ( GLOB FREEBSD_LLVM_PATHS "/usr/local/llvm*/lib")
     # Need TEMP because find_library does not work with an option variable
@@ -288,6 +290,7 @@ if ( EXTERNAL_LIBCLANG_PATH OR USE_SYSTEM_LIBCLANG )
                   ${LLVM_CONFIG_PATH}
                   /usr/lib
                   /usr/lib/llvm
+                  ${GENTOO_LLVM_PATHS}
                   ${SYS_LLVM_PATHS}
                   ${FREEBSD_LLVM_PATHS}
                   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib
